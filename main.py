@@ -1,41 +1,30 @@
 from tkinter import *
 from tkinter import ttk
+from PIL import ImageTk,Image
 
-# window = Tk()
-#
-# window.mainloop()
+window = Tk()
+window.title("Image Watermarking Tool")
+window.config(padx=0, pady=0, bg='#c0c0c0')
+window.geometry('400x400')
 
-# root = Tk()
-# frm = ttk.Frame(root, padding=20)
-# frm.grid()
-# ttk.Label(frm, text='Hello World!').grid(column=0, row=0)
-# ttk.Button(frm, text="Quit", command=root.destroy).grid(column=0, row=1)
-# root.mainloop()
+# canvas = Canvas(width=400, heigh=400)
+# canvas.grid(column=0, row=0)
 
-class App(Frame):
-    def __init__(self, master):
-        super().__init__(master)
-        self.pack()
+# top row of buttons
+add_image = Button(text='Add Image')
+add_image.grid(column=1, row=0)
+clear_img = Button(text='Clear')
+clear_img.grid(column=2, row=0)
 
-        self.entrythingy = Entry()
-        self.entrythingy.pack()
 
-        # Create the application variable.
-        self.contents = StringVar()
-        # Set it to some value.
-        self.contents.set("this is a variable")
-        # Tell the entry widget to watch this variable.
-        self.entrythingy["textvariable"] = self.contents
+#bottom row of buttons
+add_button = Button(text="Add Text")
+add_button.grid(column=1, row=2, pady=(325,0), padx=(0,0))
+add_logo = Button(text='Add Logo')
+add_logo.grid(column=2, row=2, pady=(325,0))
 
-        # Define a callback for when the user hits return.
-        # It prints the current value of the variable.
-        self.entrythingy.bind('<Key-Return>',
-                             self.print_contents)
+# Close Application
+close_button = Button(text='Close App')
+close_button.grid(column=0, row=0, padx=(0, 150), )
 
-    def print_contents(self, event):
-        print("Hi. The current entry content is:",
-              self.contents.get())
-
-root = Tk()
-myapp = App(root)
-myapp.mainloop()
+window.mainloop()
