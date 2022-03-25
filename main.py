@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import filedialog as fd
 from tkinter.filedialog import asksaveasfile, SaveAs
-from PIL import ImageTk, Image, ImageFont, ImageDraw, ImageFile
+from PIL import ImageTk, Image, ImageFont, ImageDraw,
 
 
 window = Tk()
@@ -24,7 +24,7 @@ window.config(menu=my_menu)
 
 # functions
 def save():
-    file = asksaveasfile(mode='w', defaultextension=".png")
+    file = asksaveasfile(mode='wb', defaultextension=".png")
     if file:
         imgpil = ImageTk.getimage(image)
         imgpil.save(file)
@@ -43,9 +43,8 @@ def clear_image():
 
 
 def add_text():
-    global my_image
     # Get image
-    image = my_image
+    image = image
     # Define the font
     text_font = ImageFont.truetype('arial.ttf', 32)
     # Get text to add to image
@@ -56,6 +55,7 @@ def add_text():
     edit_image.text((150, 300), text_to_add, ('red'), font=text_font)
 
 def add_watermark():
+    pass
     path = fd.askopenfilename()
     watermark = ImageTk.PhotoImage(Image.open(path))
 
