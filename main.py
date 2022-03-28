@@ -3,17 +3,17 @@ from tkinter import filedialog as fd
 from tkinter.filedialog import asksaveasfile, SaveAs
 from PIL import ImageTk, Image, ImageFont, ImageDraw
 
+global image_marked, imageTk
 
 window = Tk()
 window.title("Image Watermarking Tool")
 window.config(padx=0, pady=0, bg='#c0c0c0')
 window.geometry('600x600')
 window.maxsize(900, 900)
-global image_marked, imageTk
+
 frame = Frame(window, bg='#a0c0c0')
 frame.config()
 frame.place(relx=.5, rely=.5, anchor=CENTER, relheight=1, relwidth=1)
-
 
 # Close Application
 my_menu = Menu(window)
@@ -21,11 +21,7 @@ window.config(menu=my_menu)
 
 
 # functions
-def save():
-    file = asksaveasfile(mode='wb', defaultextension=".png")
-    if file:
-        imgpil = ImageTk.getimage(imageTk)
-        imgpil.save(file)
+
 
 def add_image():
     global image_label, image_tk
@@ -42,9 +38,11 @@ def add_image():
 
 def clear_image():
     image_label.destroy()
+    image_label_2.destroy()
 
 
 def add_text():
+    global image_label_2, watermark_img
     # Becomes an Image object again
     watermark_img = ImageTk.getimage(image_tk)
     width, height = watermark_img.size
@@ -57,23 +55,32 @@ def add_text():
     y = height - textheight - margin
     draw.text((x, y), text, font=text_font)
 
-    ##### image saves with watermark but need to be able to see the watermark first before saving. also,
-    ##### the clear button doesnt clear the watermarked image
+    # image saves with watermark but need to be able to see the watermark first before saving. also,
+    # the clear button doesn't clear the watermarked image
 
-    file = asksaveasfile(mode='wb', defaultextension=".png")
-    if file:
-        # imgpil = ImageTk.getimage(imageTk)
-        # imgpil.save(file)
-        watermark_img.save(file)
+    # file = asksaveasfile(mode='wb', defaultextension=".png")
+    # if file:
+    #     watermark_img.save(file)
 
-    image_marked = ImageTk.PhotoImage(watermark_img)
+    watermarked_image = ImageTk.PhotoImage(watermark_img)
 
-    image_label = Label(frame, image=image_marked)
-    image_label.photo = image_marked
-    image_label.place(relx=.5, rely=.5, anchor=CENTER)
-
+    image_label_2 = Label(frame, image=watermarked_image)
+    image_label_2.photo = watermarked_image
+    image_label_2.place(relx=.5, rely=.5, anchor=CENTER)
 
     # edit_image.text((150, 300), text_to_add, ('red'), font=text_font)
+
+
+def save():
+    # file = asksaveasfile(mode='wb', defaultextension=".png")
+    # if file:
+    #     imgpil = ImageTk.getimage(imageTk)
+    #     imgpil.save(file)
+    file = asksaveasfile(mode='wb', defaultextension=".png")
+    if file:
+        watermark_img.save(file)
+
+
 
 def add_watermark():
     pass
